@@ -87,7 +87,7 @@ class MotorDriver:
         :param speed: Speed of movement (0.0 to 1.0)
         """
         logger.info("Robot moving FORWARD")
-        self.motor_a.move("forward", speed)
+        self.motor_a.move("reverse", speed)
         self.motor_b.move("forward", speed)
 
     def reverse(self, speed: float = 0.5) -> None:
@@ -97,7 +97,7 @@ class MotorDriver:
         :param speed: Speed of movement (0.0 to 1.0)
         """
         logger.info("Robot moving REVERSE")
-        self.motor_a.move("reverse", speed)
+        self.motor_a.move("forward", speed)
         self.motor_b.move("reverse", speed)
 
     def left(self, speed: float = 0.5) -> None:
@@ -107,8 +107,8 @@ class MotorDriver:
         :param speed: Speed of turn (0.0 to 1.0)
         """
         logger.info("Robot turning LEFT")
-        self.motor_a.move("reverse", speed)
-        self.motor_b.move("forward", speed)
+        self.motor_a.move("forward", speed)
+        self.motor_b.move("reverse", speed)
 
     def right(self, speed: float = 0.5) -> None:
         """
@@ -117,8 +117,8 @@ class MotorDriver:
         :param speed: Speed of turn (0.0 to 1.0)
         """
         logger.info("Robot turning RIGHT")
-        self.motor_a.move("forward", speed)
-        self.motor_b.move("reverse", speed)
+        self.motor_a.move("reverse", speed)
+        self.motor_b.move("forward", speed)
 
     def stop(self) -> None:
         """
