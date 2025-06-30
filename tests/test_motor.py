@@ -1,5 +1,8 @@
 # test_motor.py
 
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 from motor_driver import Motor
 import time
 
@@ -11,14 +14,14 @@ motor_b = Motor(enable_pin=13, in1_pin=19, in2_pin=26)
 
 try:
     print("Testing Motor A - FORWARD")
-    motor_a.move("forward", speed=0.6)
+    motor_a.move("reverse", speed=0.6)
     time.sleep(2)
     print("Stopping Motor A")
     motor_a.stop()
     time.sleep(1)
 
     print("Testing Motor A - REVERSE")
-    motor_a.move("reverse", speed=0.6)
+    motor_a.move("forward", speed=0.6)
     time.sleep(2)
     print("Stopping Motor A")
     motor_a.stop()
@@ -44,3 +47,4 @@ finally:
     print("Stopping all motors")
     motor_a.stop()
     motor_b.stop()
+
