@@ -31,7 +31,7 @@ class Motor:
         self._in2 = DigitalOutputDevice(in2_pin)
         logger.info(f"Initialized Motor (EN: GPIO{enable_pin}, IN1: GPIO{in1_pin}, IN2: GPIO{in2_pin})")
 
-    def move(self, direction: Direction, speed: float = 1.0) -> None:
+    def move(self, direction: Direction, speed: float = 0.5) -> None:
         """
         Move motor in specified direction with given speed.
 
@@ -80,7 +80,7 @@ class MotorDriver:
         self.motor_b = Motor(enable_pin=13, in1_pin=19, in2_pin=26)
         logger.info("MotorDriver initialized for 2 motors.")
 
-    def forward(self, speed: float = 1.0) -> None:
+    def forward(self, speed: float = 0.5) -> None:
         """
         Move robot forward by driving both motors forward.
 
@@ -90,7 +90,7 @@ class MotorDriver:
         self.motor_a.move("forward", speed)
         self.motor_b.move("forward", speed)
 
-    def reverse(self, speed: float = 1.0) -> None:
+    def reverse(self, speed: float = 0.5) -> None:
         """
         Move robot backward by driving both motors in reverse.
 
@@ -100,7 +100,7 @@ class MotorDriver:
         self.motor_a.move("reverse", speed)
         self.motor_b.move("reverse", speed)
 
-    def left(self, speed: float = 1.0) -> None:
+    def left(self, speed: float = 0.5) -> None:
         """
         Turn robot left by reversing left motor and forwarding right motor.
 
@@ -110,7 +110,7 @@ class MotorDriver:
         self.motor_a.move("reverse", speed)
         self.motor_b.move("forward", speed)
 
-    def right(self, speed: float = 1.0) -> None:
+    def right(self, speed: float = 0.5) -> None:
         """
         Turn robot right by forwarding left motor and reversing right motor.
 
