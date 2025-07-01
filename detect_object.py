@@ -8,6 +8,7 @@ import argparse
 import cv2
 import mediapipe as mp
 import numpy as np
+import time
 
 # Argument parser for CLI
 parser = argparse.ArgumentParser(description="Object detection using MediaPipe and TFLite model.")
@@ -43,17 +44,8 @@ def print_detections(detection_result):
 
 with ObjectDetector.create_from_options(options) as detector:
     mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=image_rgb)
+    start_time = time.time()
     detection_result = detector.detect(mp_image)
+    end_time = time.time()
     print_detections(detection_result)
-    # Draw detections on image
-    for det in detection_result.detections:
-        bbox = det.bounding_box
-        x, y, w, h = bbox.origin_x, bbox.origin_y, bbox.width, bbox.height
-        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        label = det.categories[0].category_name or "Object"
-        score = det.categories[0].score
-        cv2.putText(image, f"{label} {score:.2f}", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-    # Show result
-    cv2.imshow('Detection', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    print(f"Inference latency: {(end_time - start_time)*1000:.2f} ms")
