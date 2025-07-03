@@ -64,3 +64,6 @@ python tests/test_detect_object.py --model models/efficientdet_lite0_int8.tflite
 
 ## License
 See [LICENSE](LICENSE) for details.
+
+## References
+- https://ai.google.dev/edge/mediapipe/solutions/vision/object_detector/python#video_1
