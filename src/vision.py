@@ -1,10 +1,13 @@
 import numpy as np
 import mediapipe as mp
 
-BaseOptions = mp.tasks.BaseOptions
-ObjectDetector = mp.tasks.vision.ObjectDetector
-ObjectDetectorOptions = mp.tasks.vision.ObjectDetectorOptions
-VisionRunningMode = mp.tasks.vision.RunningMode
+from mediapipe.tasks import python
+from mediapipe.tasks.python import vision
+
+BaseOptions = python.BaseOptions
+MpObjectDetector = vision.ObjectDetector
+ObjectDetectorOptions = vision.ObjectDetectorOptions
+VisionRunningMode = vision.RunningMode
 
 class ObjectDetector:
     def __init__(self, model_path):
@@ -16,7 +19,7 @@ class ObjectDetector:
             max_results=5,
             running_mode=VisionRunningMode.VIDEO
         )
-        self.detector = ObjectDetector.create_from_options(options)
+        self.detector = MpObjectDetector.create_from_options(options)
 
     def detect_objects(self, image_np):
         mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=image_np)
