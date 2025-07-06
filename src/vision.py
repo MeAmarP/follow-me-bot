@@ -17,7 +17,7 @@ class ObjectDetector:
         options = ObjectDetectorOptions(
             base_options=BaseOptions(model_asset_path=model_path),
             max_results=5,
-            running_mode=VisionRunningMode.VIDEO
+            running_mode=VisionRunningMode.IMAGE
         )
         self.detector = MpObjectDetector.create_from_options(options)
 
