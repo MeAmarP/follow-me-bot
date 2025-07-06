@@ -1,23 +1,14 @@
-#!/usr/bin/python3
+import cv2
+from picamera2 import Picamera2
 
-# Capture a JPEG while still running in the preview mode. When you
-# capture to a file, the return value is the metadata for that image.
+robocam = Picamera2()
+robocam.configure(robocam.create_preview_configuration(main={"format": 'RGB888',"size": (640, 480)}))
 
-import time
-
-from picamera2 import Picamera2, Preview
-
-picam2 = Picamera2()
-
-preview_config = picam2.create_preview_configuration(main={"size": (800, 600)})
-picam2.configure(preview_config)
-
-picam2.start_preview(Preview.QTGL)
-
-picam2.start()
-time.sleep(2)
-
-metadata = picam2.capture_file("123test.jpg")
-print(metadata)
-
-picam2.close()
+robocam.start()
+cnt = 0
+while cnt < 5:
+    frame = robocam.capture_array()
+    f_name = f'frame_{cnt}.jpg'
+    cv2.imwrite(f_name, frame)
+    cnt += 1
+    print(f"✅ Image saved to {f_name}")
