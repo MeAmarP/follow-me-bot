@@ -1,14 +1,23 @@
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+#!/usr/bin/python3
+
+# Capture a JPEG while still running in the preview mode. When you
+# capture to a file, the return value is the metadata for that image.
+
 import time
-import cv2
 
-#Capture image as array
-camera = PiCamera()
-rawImage = PiRGBArray(camera)
-time.sleep(0.1)
-camera.capture(rawImage, format = "rgb")
-image = rawImage.array
+from picamera2 import Picamera2, Preview
 
-# Record captured image on MicroSD card
-cv2.imwrite("test-picam.jpeg", image)
+picam2 = Picamera2()
+
+preview_config = picam2.create_preview_configuration(main={"size": (800, 600)})
+picam2.configure(preview_config)
+
+picam2.start_preview(Preview.QTGL)
+
+picam2.start()
+time.sleep(2)
+
+metadata = picam2.capture_file("123test.jpg")
+print(metadata)
+
+picam2.close()
