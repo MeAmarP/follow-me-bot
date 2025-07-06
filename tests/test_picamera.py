@@ -2,6 +2,7 @@ import cv2
 from picamera2 import Picamera2
 
 robocam = Picamera2()
+robocam.options["quality"] = 95
 robocam.configure(robocam.create_preview_configuration(main={"format": 'RGB888',"size": (640, 480)}))
 
 robocam.start()
