@@ -18,13 +18,6 @@ class ObjectDetector:
         )
         self.detector = ObjectDetector.create_from_options(options)
 
-        # Sample class names (can be replaced with actual labels based on the model used)
-        self.class_names = {
-            "person": 0,
-            "car": 1,
-            "dog": 2
-        }
-
     def detect_objects(self, image_np):
         mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=image_np)
         detection_result = self.detector.detect(mp_image)
