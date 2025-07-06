@@ -2,14 +2,14 @@ import cv2
 import time
 
 def start_camera_stream(output_path='captured_image.jpg', buffer_time=2):
-    cap = cv2.VideoCapture(0)  # Change index if multiple cams or use CAP_V4L2 for PiCam
+    cap = cv2.VideoCapture(0, cv2.CAP_V4L2)  # Change index if multiple cams or use CAP_V4L2 for PiCam
 
     if not cap.isOpened():
         print("❌ Error: Cannot open camera")
         return
 
-    print(f"✅ Camera stream started. Waiting {buffer_time} seconds for camera to stabilize...")
-    time.sleep(buffer_time)
+    # print(f"✅ Camera stream started. Waiting {buffer_time} seconds for camera to stabilize...")
+    # time.sleep(buffer_time)
 
     ret, frame = cap.read()
     if not ret:
@@ -19,8 +19,6 @@ def start_camera_stream(output_path='captured_image.jpg', buffer_time=2):
         print(f"✅ Image saved to {output_path}")
 
     cap.release()
-    cv2.destroyAllWindows()
-
 def main():
     start_camera_stream()
 
