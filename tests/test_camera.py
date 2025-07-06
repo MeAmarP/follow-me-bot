@@ -1,24 +1,22 @@
 import cv2
+import time
 
-def start_camera_stream():
+def start_camera_stream(output_path='captured_image.jpg', buffer_time=2):
     cap = cv2.VideoCapture(0)  # Change index if multiple cams or use CAP_V4L2 for PiCam
 
     if not cap.isOpened():
         print("❌ Error: Cannot open camera")
         return
 
-    print("✅ Camera stream started. Press 'q' to quit.")
+    print(f"✅ Camera stream started. Waiting {buffer_time} seconds for camera to stabilize...")
+    time.sleep(buffer_time)
 
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            print("❌ Failed to grab frame")
-            break
-
-        cv2.imshow('Raspberry Pi Camera Stream', frame)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+    ret, frame = cap.read()
+    if not ret:
+        print("❌ Failed to grab frame")
+    else:
+        cv2.imwrite(output_path, frame)
+        print(f"✅ Image saved to {output_path}")
 
     cap.release()
     cv2.destroyAllWindows()
