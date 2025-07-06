@@ -3,6 +3,9 @@ import numpy as np
 import sys
 import os
 import argparse
+
+# Add src directory to sys.path for module import
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 from vision import ObjectDetector
 
 
