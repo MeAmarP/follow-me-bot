@@ -67,3 +67,8 @@ See [LICENSE](LICENSE) for details.
 
 ## References
 - https://ai.google.dev/edge/mediapipe/solutions/vision/object_detector/python#video_1
+- https://randomnerdtutorials.com/raspberry-pi-pico-dc-motor-micropython/
+- https://github.com/google-ai-edge/mediapipe-samples
+- https://www.raspberrypi.com/documentation/computers/camera_software.html#rpicam-apps
+- https://gpiozero.readthedocs.io/en/stable/recipes.html#
+- Video Sample - https://www.freepik.com/free-video/long-path-middle-forest_2867137#fromView=search&page=1&position=43&uuid=3ef1b4a0-d8eb-407f-8def-44461006fca5
