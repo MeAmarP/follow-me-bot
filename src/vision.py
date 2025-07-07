@@ -1,5 +1,6 @@
 import numpy as np
 import mediapipe as mp
+import cv2
 
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
@@ -72,3 +73,57 @@ class ObjectDetector:
                         FONT_SIZE, TEXT_COLOR, FONT_THICKNESS)
 
         return image
+
+class OpencvCapture:
+    """
+    Capture frames from a video file using OpenCV.
+    Usage:
+        cap = OpencvCapture('path/to/video.mp4')
+        for frame in cap:
+            # process frame
+    """
+    def __init__(self, video_path):
+        self.cap = cv2.VideoCapture(video_path)
+        if not self.cap.isOpened():
+            raise FileNotFoundError(f"Cannot open video file: {video_path}")
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        ret, frame = self.cap.read()
+        if not ret:
+            self.cap.release()
+            raise StopIteration
+        return frame
+
+    def release(self):
+        self.cap.release()
+
+try:
+    from picamera2 import Picamera2
+except ImportError:
+    Picamera2 = None
+
+class PicameraCapture:
+    """
+    Capture frames from Raspberry Pi Camera v2 using Picamera2.
+    Usage:
+        cap = PicameraCapture()
+        frame = cap.read()
+    """
+    def __init__(self, size=(640, 480)):
+        if Picamera2 is None:
+            raise ImportError("picamera2 module is not installed.")
+        self.picam = Picamera2()
+        self.picam.preview_configuration.main.size = size
+        self.picam.preview_configuration.main.format = "RGB888"
+        self.picam.configure("preview")
+        self.picam.start()
+
+    def read(self):
+        frame = self.picam.capture_array()
+        return frame
+
+    def release(self):
+        self.picam.stop()
